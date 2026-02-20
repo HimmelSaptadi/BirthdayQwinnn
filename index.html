@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hey…</title>
+<title>hey…</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
@@ -29,31 +29,30 @@ body{
 .typing{
   font-size:20px;
   line-height:1.8;
-  max-width:500px;
+  max-width:520px;
+  white-space:pre-line;
+}
+button{
+  padding:14px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff4f8b;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
 }
 .card{
   background:white;
   color:#333;
-  padding:25px;
-  border-radius:25px;
+  padding:26px;
+  border-radius:26px;
   max-width:420px;
-  text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.3);
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
   animation:pop 1s ease;
 }
 h1{
   font-family:'Playfair Display',serif;
   color:#ff4f8b;
-}
-button{
-  margin-top:20px;
-  padding:12px 26px;
-  border:none;
-  border-radius:30px;
-  background:#ff4f8b;
-  color:white;
-  font-size:14px;
-  cursor:pointer;
 }
 @keyframes pop{
   from{transform:scale(.8);opacity:0}
@@ -61,16 +60,14 @@ button{
 }
 .star{
   position:absolute;
-  width:2px;
-  height:2px;
+  width:2px;height:2px;
   background:white;
   opacity:.7;
 }
 .balloon{
   position:absolute;
   bottom:-80px;
-  width:40px;
-  height:55px;
+  width:40px;height:55px;
   border-radius:50%;
   animation:float 8s infinite ease-in;
   opacity:.7;
@@ -88,8 +85,13 @@ button{
   <source src="pasilyo.mp3" type="audio/mpeg">
 </audio>
 
+<!-- STAGE 0 -->
+<div class="screen" id="stage0">
+  <button onclick="enter()">klik ini sebentar</button>
+</div>
+
 <!-- STAGE 1 -->
-<div class="screen" id="stage1">
+<div class="screen hidden" id="stage1">
   <div class="typing" id="text1"></div>
 </div>
 
@@ -103,13 +105,13 @@ button{
   <div class="card">
     <h1>🎉 Happy Birthday, Uwinnnn 🎂</h1>
     <p>
-      Hari ini mungkin terlihat biasa aja,<br>
+      Hari ini mungkin kelihatan biasa aja,<br>
       tapi sebenernya hari ini adalah hari<br>
       dimana dunia dapet versi kamu 😆💖<br><br>
 
-      Semoga kamu selalu sehat, bahagia,
-      dan pelan-pelan semua hal baik
-      nyamperin hidup kamu ✨<br><br>
+      Semoga kamu selalu sehat,
+      bahagia, dan pelan-pelan
+      semua hal baik nyamperin hidup kamu ✨<br><br>
 
       Thank you for being you —
       random, lucu,
@@ -120,14 +122,13 @@ button{
       jeung nu sok bisa ngajadikeun
       aku ngerasa pulang 🤍
     </p>
-    <p><b>From: Dawaaaa ❤️</b></p>
 
+    <p><b>From: Dawaaaa ❤️</b></p>
     <button onclick="replay()">🔁 ulangi dari awal</button>
     <p id="repeatText"></p>
   </div>
 </div>
 
-<!-- CONFETTI -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
@@ -136,7 +137,7 @@ music.volume=0.25;
 
 let repeatCount=0;
 
-function typeWriter(el,text,speed,callback){
+function typeWriter(el,text,speed,cb){
   let i=0;
   el.innerHTML="";
   const t=setInterval(()=>{
@@ -145,22 +146,37 @@ function typeWriter(el,text,speed,callback){
       i++;
     }else{
       clearInterval(t);
-      if(callback) callback();
+      if(cb)cb();
     }
   },speed);
 }
 
+function enter(){
+  stage0.classList.add("hidden");
+  stage1.classList.remove("hidden");
+  startStory();
+}
+
 function startStory(){
-  typeWriter(text1,
-  "Sebenernya ini nggak penting…\n\nTapi ada satu hal yang pengen aku bilang.",
-  45,()=>{
+  let t1="", t2="";
+
+  if(repeatCount===0){
+    t1="Sebenernya ini nggak penting…\n\nTapi ada satu hal yang pengen aku bilang.";
+    t2="Aku nggak tau kamu bakal buka ini atau nggak.\n\nTapi kalau kamu di sini… berarti kamu penasaran 😌";
+  }else if(repeatCount===1){
+    t1="Eh… kok balik lagi?\n\nKatanya cuma mau lihat doang 😏";
+    t2="Atau jangan-jangan kamu senyum dikit pas bacanya?";
+  }else{
+    t1="Kayaknya kamu beneran penasaran ya…";
+    t2="Kalau gitu aku jujur dikit.\n\nIni semua memang buat kamu 🤍";
+  }
+
+  typeWriter(text1,t1,45,()=>{
     setTimeout(()=>{
       stage1.classList.add("hidden");
       stage2.classList.remove("hidden");
       music.play();
-      typeWriter(text2,
-      "Aku nggak tau kamu bakal buka ini atau nggak.\n\nTapi kalau kamu di sini… berarti kamu penasaran 😌",
-      45,()=>{
+      typeWriter(text2,t2,45,()=>{
         setTimeout(showSurprise,1200);
       });
     },1000);
@@ -170,23 +186,22 @@ function startStory(){
 function showSurprise(){
   stage2.classList.add("hidden");
   stage3.classList.remove("hidden");
-  confetti({particleCount:200,spread:90,origin:{y:.6}});
+  confetti({particleCount:220,spread:90,origin:{y:.6}});
 }
 
 function replay(){
   repeatCount++;
   stage3.classList.add("hidden");
-  stage1.classList.remove("hidden");
+  stage0.classList.remove("hidden");
   music.currentTime=0;
-  music.play();
+
   repeatText.innerHTML =
     repeatCount===1 ? "kok diulang lagi??? 😑" :
     repeatCount===2 ? "serius diulang lagi???" :
     repeatCount>=3 ? "kalau kamu baca ini… berarti kamu beneran peduli 🤍" : "";
-  startStory();
 }
 
-/* DECORATIONS */
+/* decorations */
 for(let i=0;i<80;i++){
   let s=document.createElement("div");
   s.className="star";
@@ -202,8 +217,6 @@ for(let i=0;i<12;i++){
   b.style.animationDuration=6+Math.random()*5+"s";
   document.body.appendChild(b);
 }
-
-startStory();
 </script>
 
 </body>
