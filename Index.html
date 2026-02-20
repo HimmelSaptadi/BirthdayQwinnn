@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  overflow: hidden;
+}
+
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  z-index: 10;
+}
+
+.screen button {
+  padding: 15px 30px;
+  border-radius: 40px;
+  border: none;
+  background: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card {
+  max-width: 420px;
+  background: white;
+  margin: 60px auto;
+  padding: 25px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,.2);
+  animation: pop 1s ease;
+}
+
+h1 {
+  color: #ff4f8b;
+}
+
+p {
+  color: #444;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+@keyframes pop {
+  from {transform: scale(.8); opacity:0;}
+  to {transform: scale(1); opacity:1;}
+}
+
+/* balloons */
+.balloon {
+  position: absolute;
+  bottom: -100px;
+  width: 40px;
+  height: 55px;
+  border-radius: 50%;
+  animation: float 8s infinite ease-in;
+  opacity: .7;
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-120vh);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- opening -->
+<div class="screen" id="start">
+  <button onclick="start()">Klik ini dulu ya 😏</button>
+</div>
+
+<!-- music -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_6b7fa6d66c.mp3">
+</audio>
+
+<!-- main card -->
+<div class="card">
+  <h1>🎉 Happy Birthday, NAMA_DIA 🎂</h1>
+  <p>
+    Hari ini spesial banget, karena kamu lahir ke dunia dan bikin dunia jadi
+    sedikit lebih lucu, lebih rame, dan lebih berwarna 😆💖<br><br>
+
+    Semoga kamu selalu sehat, bahagia, rezekinya lancar,
+    dan semua hal baik pelan-pelan datang ke hidup kamu ✨<br><br>
+
+    Thank you for being you —
+    yang kadang random,
+    kadang ngeselin,
+    tapi selalu bikin aku mikir:
+    <i>“kok bisa ya aku seberuntung ini”</i> 😌<br><br>
+
+    Tetep jadi kamu yang sekarang ya,
+    yang senyumnya bikin tenang,
+    jeung nu sok bisa ngajadikeun aku ngerasa pulang 🤍<br><br>
+
+    Jangan lupa hari ini senyum,
+    makan kue,
+    dan inget… aya aku di dieu 🫶
+  </p>
+
+  <p><b>From: NAMA_KAMU ❤️</b></p>
+</div>
+
+<!-- confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+function start(){
+  document.getElementById("start").style.display="none";
+  document.getElementById("music").play();
+  confetti({
+    particleCount: 200,
+    spread: 80,
+    origin: { y: 0.6 }
+  });
+}
+
+// balloons
+for(let i=0;i<12;i++){
+  let b=document.createElement("div");
+  b.className="balloon";
+  b.style.left=Math.random()*100+"vw";
+  b.style.background=`hsl(${Math.random()*360},80%,70%)`;
+  b.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(b);
+}
+</script>
+
+</body>
+</html>
