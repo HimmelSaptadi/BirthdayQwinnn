@@ -2,47 +2,53 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>For You 🎂</title>
+  <title>...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Arial', sans-serif;
+      background: #0f0f0f;
       color: white;
       text-align: center;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     .screen {
       min-height: 100vh;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 25px;
+    }
+
+    .show {
+      display: flex;
     }
 
     h1 {
-      font-size: 2.3em;
-      margin-bottom: 15px;
+      font-size: 2.2em;
+      margin-bottom: 20px;
     }
 
     p {
       max-width: 600px;
       font-size: 1.1em;
-      line-height: 1.6;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
     }
 
     button {
-      margin-top: 30px;
-      padding: 15px 35px;
+      margin-top: 35px;
+      padding: 14px 34px;
       border: none;
       border-radius: 30px;
-      font-size: 1em;
       background: white;
-      color: #ff5e78;
+      color: #ff4f8b;
+      font-size: 1em;
       cursor: pointer;
       transition: 0.3s;
     }
@@ -51,111 +57,109 @@
       transform: scale(1.05);
     }
 
-    #main, #surprise {
-      display: none;
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
+    /* hearts */
     .heart {
       position: fixed;
       top: -10px;
-      font-size: 20px;
+      font-size: 22px;
       animation: fall linear infinite;
     }
 
     @keyframes fall {
       to { transform: translateY(110vh); }
     }
-
-    .fade {
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
+
 <body>
 
-  <!-- AUDIO -->
-  <audio id="bgm" loop>
-    <source src="lagu.mp3" type="audio/mpeg">
-  </audio>
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="lagu.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- OPENING -->
-  <div class="screen fade" id="opening">
-    <h1>Hei kamu… 👀</h1>
-    <p>
-      Iya, kamu yang lagi baca ini.  
-      Jangan scroll dulu.  
-      Ada sesuatu dikit… tapi penting 😌
-    </p>
-    <button onclick="start()">Mulai</button>
-  </div>
+<!-- MYSTERY OPENING -->
+<div class="screen show" id="mystery">
+  <p style="animation-delay:0s;">Hei…</p>
+  <p style="animation-delay:1.5s;">Kalau kamu sampai di sini,</p>
+  <p style="animation-delay:3s;">artinya kamu cukup penting.</p>
+  <p style="animation-delay:4.5s;">Dan ini… bukan hal biasa.</p>
+  <button onclick="start()">lanjut</button>
+</div>
 
-  <!-- MAIN -->
-  <div class="screen fade" id="main">
-    <h1>🎂 Happy Birthday 🎉</h1>
-    <p>
-      Happy birthday ya kamu 💖  
-      Another year older, tapi entah kenapa masih aja bikin aku senyum.
-      <br><br>
-      Makasih udah jadi kamu —  
-      yang kadang random, kadang lucu,  
-      kadang nyebelin dikit (dikit doang 😏).
-      <br><br>
-      Semoga hari ini penuh hal baik,  
-      sehat terus, bahagia terus,  
-      jeung ulah poho seuri 😊
-    </p>
+<!-- MAIN BIRTHDAY -->
+<div class="screen" id="main">
+  <h1>🎉 Happy Birthday 🎂</h1>
+  <p>
+    Surprise 😌  
+    I know, kamu nggak nyangka bakal sampai ke sini.
+    <br><br>
+    Hari ini bukan hari biasa.  
+    Hari ini adalah hari di mana seseorang yang berarti banget… lahir.
+    <br><br>
+    Semoga kamu selalu sehat,  
+    hatinya tenang,  
+    langkahnya ringan,  
+    jeung hirupna pinuh ku hal-hal alus ✨
+    <br><br>
+    Thank you for being you.  
+    Dengan semua sisi random, lucu, dan caramu hadir tanpa sadar bikin dunia
+    (dan aku) jadi lebih hangat 🤍
+  </p>
 
-    <button onclick="showSurprise()">Jangan klik… eh klik deh 😆</button>
-  </div>
+  <button onclick="surprise()">jangan klik ini</button>
+</div>
 
-  <!-- SURPRISE -->
-  <div class="screen fade" id="surprise">
-    <h1>🎁 Surprise!</h1>
-    <p>
-      No fancy words.  
-      No long speech.
-      <br><br>
-      I just want you to know this:
-      <br><br>
-      You matter.  
-      A lot.  
-      And I’m really glad you exist 💕
-    </p>
-  </div>
+<!-- FINAL SURPRISE -->
+<div class="screen" id="final">
+  <h1>🤍</h1>
+  <p>
+    No overthinking.  
+    No big words.
+    <br><br>
+    Just this:
+    <br><br>
+    Aku bersyukur kamu ada.  
+    And today, I hope you feel loved.  
+    A lot.
+    <br><br>
+    Selamat ulang tahun.  
+    Aya aku di dieu 🫶
+  </p>
+</div>
 
-  <script>
-    const music = document.getElementById("bgm");
-    music.volume = 0.15;
+<script>
+  const music = document.getElementById("music");
+  music.volume = 0.18;
 
-    function start() {
-      document.getElementById("opening").style.display = "none";
-      document.getElementById("main").style.display = "flex";
-      music.play();
+  function start() {
+    document.getElementById("mystery").style.display = "none";
+    document.getElementById("main").classList.add("show");
+    music.play();
+  }
+
+  function surprise() {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("final").classList.add("show");
+    hearts();
+  }
+
+  function hearts() {
+    for (let i = 0; i < 30; i++) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerHTML = "🤍";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6000);
     }
-
-    function showSurprise() {
-      document.getElementById("main").style.display = "none";
-      document.getElementById("surprise").style.display = "flex";
-      createHearts();
-    }
-
-    function createHearts() {
-      for (let i = 0; i < 25; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
-      }
-    }
-  </script>
+  }
+</script>
 
 </body>
 </html>
