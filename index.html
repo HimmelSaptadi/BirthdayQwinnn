@@ -143,49 +143,59 @@ function nextPage(){
         body.classList.add("pink");
 
         text.innerHTML=`Selamat ulang tahun, <span class="heartbeat">${namaDia}</span> 🎉<br><br>
-        Hari ini adalah hari yang spesial.`;
+        Hari ini bukan cuma tentang bertambahnya usia.<br>
+        Hari ini tentang kamu — dan semua hal baik yang kamu bawa.`;
 
         btn.innerHTML="Reply →";
+
+        // 🎀 Dekor Page 2
         addDecor("🎀","20px",null,"20px",null);
+        addDecor("✨","60px","40px",null,null);
     }
 
     else if(step===1){
-        text.innerHTML=`Aku cuma ingin bilang…<br><br>
-        Semoga di usia yang baru ini,
+        text.innerHTML=`Aku cuma ingin bilang sesuatu…<br><br>
+        Semoga di usia yang baru ini,<br>
         kamu menemukan lebih banyak alasan untuk tersenyum.`;
 
+        // ✨ Dekor Page 3
         addDecor("✨","30px","30px",null,null);
+        addDecor("💖","70px",null,"50px",null);
     }
 
     else if(step===2){
-        text.innerHTML=`Kalau suatu hari terasa berat,<br><br>
+        text.innerHTML=`Kalau suatu hari semuanya terasa berat,<br><br>
         ingat ya — kamu sudah sejauh ini.<br>
         Dan itu bukan hal kecil.`;
 
+        // 💌 Dekor Page 4
         addDecor("💌",null,null,"40px","40px");
+        addDecor("🌸","80px","50px",null,null);
     }
 
     else if(step===3){
-        text.innerHTML=`Masih mau lanjut?<br><br>
-        kalau kamu udah sampai sini...
-        berarti kamu udah baca semuanya 
-        dan aku seneng akan hal itu <br>
-        masih ada satu lagi yang ingin aku bilang...`;
+        text.innerHTML=`Kalau kamu sudah sampai di sini…<br><br>
+        berarti kamu benar-benar membacanya.<br>
+        Dan itu bikin aku senang.<br><br>
+        Masih ada satu hal terakhir…`;
 
+        // ❓ Dekor Suspense
         addDecor("❓","25px",null,"50px",null);
+        addDecor("✨","100px","70px",null,null);
     }
 
     else if(step===4){
-        // 🔥 SECRET PAGE
         text.innerHTML=`<span class="heartbeat">💖 FINAL PAGE 💖</span><br><br>
-        Sebenarnya…<br><br>
-        Aku bersyukur bisa bertemu kamu.<br>
-        Dan aku harap tahun ini
-        jadi tahun terbaik untukmu.<br><br>
+        Aku bersyukur bisa mengenal kamu.<br>
+        Semoga tahun ini jadi tahun terbaik untukmu.<br><br>
         Terima kasih sudah jadi kamu.`;
 
         btn.innerHTML="End";
-        addDecor("🔒","20px","20px",null,null);
+
+        // 🔥 SECRET DECOR
+        addDecor("🎉","20px","20px",null,null);
+        addDecor("💖","60px",null,"40px",null);
+        addDecor("✨","120px","80px",null,null);
     }
 
     else{
@@ -198,5 +208,6 @@ function nextPage(){
 
 </body>
 </html>
+
 
 
