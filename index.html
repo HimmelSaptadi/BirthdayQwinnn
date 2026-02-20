@@ -93,6 +93,24 @@ button:hover{
     60%{transform:scale(1.2)}
     100%{transform:scale(1)}
 }
+
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    top: -10px;
+    border-radius: 50%;
+    animation: fall linear forwards;
+    z-index: 999;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 
@@ -109,7 +127,7 @@ button:hover{
 
 <script>
 let step = 0;
-const namaDia = "Uwinnnnn"; // GANTI
+const namaDia = "Uwinnnnn";
 
 function clearDecor(){
     document.querySelectorAll(".decor").forEach(e => e.remove());
@@ -124,6 +142,20 @@ function addDecor(symbol, top, left, right, bottom){
     if(right) decor.style.right=right;
     if(bottom) decor.style.bottom=bottom;
     document.getElementById("container").appendChild(decor);
+}
+
+/* CONFETTI FUNCTION */
+function createConfetti(colors) {
+    for(let i=0; i<40; i++){
+        const conf = document.createElement("div");
+        conf.className="confetti";
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.backgroundColor=
+            colors[Math.floor(Math.random()*colors.length)];
+        conf.style.animationDuration=(Math.random()*2+2)+"s";
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),4000);
+    }
 }
 
 function nextPage(){
@@ -148,9 +180,10 @@ function nextPage(){
 
         btn.innerHTML="Reply →";
 
-        // 🎀 Dekor Page 2
         addDecor("🎀","20px",null,"20px",null);
         addDecor("✨","60px","40px",null,null);
+
+        createConfetti(["#ff4da6","#ffffff","#ffcce6"]);
     }
 
     else if(step===1){
@@ -158,9 +191,10 @@ function nextPage(){
         Semoga di usia yang baru ini,<br>
         kamu menemukan lebih banyak alasan untuk tersenyum.`;
 
-        // ✨ Dekor Page 3
         addDecor("✨","30px","30px",null,null);
         addDecor("💖","70px",null,"50px",null);
+
+        createConfetti(["#ff66b2","#ffb3d9","#ffffff"]);
     }
 
     else if(step===2){
@@ -168,9 +202,10 @@ function nextPage(){
         ingat ya — kamu sudah sejauh ini.<br>
         Dan itu bukan hal kecil.`;
 
-        // 💌 Dekor Page 4
         addDecor("💌",null,null,"40px","40px");
         addDecor("🌸","80px","50px",null,null);
+
+        createConfetti(["#ff99cc","#ffe6f2","#ff4da6"]);
     }
 
     else if(step===3){
@@ -179,9 +214,10 @@ function nextPage(){
         Dan itu bikin aku senang.<br><br>
         Masih ada satu hal terakhir…`;
 
-        // ❓ Dekor Suspense
         addDecor("❓","25px",null,"50px",null);
         addDecor("✨","100px","70px",null,null);
+
+        createConfetti(["#ffffff","#ff66b2","#ff1a8c"]);
     }
 
     else if(step===4){
@@ -192,10 +228,11 @@ function nextPage(){
 
         btn.innerHTML="End";
 
-        // 🔥 SECRET DECOR
         addDecor("🎉","20px","20px",null,null);
         addDecor("💖","60px",null,"40px",null);
         addDecor("✨","120px","80px",null,null);
+
+        createConfetti(["#ff4da6","#ffffff","#ffd6eb","#ff80bf"]);
     }
 
     else{
@@ -208,6 +245,3 @@ function nextPage(){
 
 </body>
 </html>
-
-
-
