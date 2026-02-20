@@ -11,49 +11,32 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
-  color: #f5f5f5;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  transition: background 1.5s ease;
 }
 
-/* 🌌 STARS BACKGROUND */
-.stars {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+/* DARK PAGE */
+body.dark {
+  background: linear-gradient(135deg, #0f0f1a, #1a1a2e, #16213e);
 }
 
-.stars::before {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.15;
-  animation: moveStars 60s linear infinite;
-}
-
-@keyframes moveStars {
-  from { transform: translateY(0); }
-  to { transform: translateY(-200px); }
+/* PINK PAGE */
+body.pink {
+  background: linear-gradient(135deg, #ff9eb5, #ffc2d1, #ffe0e9);
+  color: #4a2c35;
 }
 
 .container {
   max-width: 420px;
   padding: 30px;
   text-align: center;
-  animation: fadeIn 1.2s ease;
-}
-
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
+  position: relative;
+  z-index: 2;
 }
 
 button {
@@ -65,41 +48,37 @@ button {
   cursor: pointer;
   background: linear-gradient(135deg, #ff8fa3, #ffb3c1);
   color: #1a1a2e;
-  font-weight: 500;
   transition: 0.3s;
 }
 
 button:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
+  transform: scale(1.07);
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
-/* ✨ FADE */
-.fade {
-  animation: fadeIn 0.8s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 💓 HEARTBEAT */
 .heartbeat {
   display: inline-block;
   animation: beat 1.2s infinite;
 }
-
 @keyframes beat {
-  0%, 100% { transform: scale(1); }
+  0%,100% { transform: scale(1); }
   50% { transform: scale(1.15); }
 }
 
-/* 🎉 CONFETTI */
+/* DECORATIONS */
+.decor {
+  position: fixed;
+  font-size: 30px;
+  opacity: 0.8;
+  animation: float 4s ease-in-out infinite alternate;
+  z-index: 1;
+}
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(15px); }
+}
+
 .confetti {
   position: fixed;
   width: 8px;
@@ -107,7 +86,6 @@ button:hover {
   top: -10px;
   animation: fall linear forwards;
 }
-
 @keyframes fall {
   to {
     transform: translateY(110vh) rotate(720deg);
@@ -117,9 +95,9 @@ button:hover {
 </style>
 </head>
 
-<body>
+<body class="dark">
 
-<div class="stars"></div>
+<div id="decorations"></div>
 
 <div class="container">
   <div id="text"></div>
@@ -129,66 +107,38 @@ button:hover {
 <audio id="music" src="pasilyo.mp3" loop></audio>
 
 <script>
+const body = document.body;
 const textEl = document.getElementById("text");
 const btn = document.getElementById("btn");
 const music = document.getElementById("music");
+const decorContainer = document.getElementById("decorations");
 
-music.volume = 0.25;
+music.volume = 0.3;
 let step = 0;
+const namaDia = "Uwinnnnn"; // ganti nama
 
 const messages = [
-`Eh…<br><br>Bentar dulu.`,
-
-`Oke…<br>
-sekarang boleh mulai.<br><br>
-Hari ini bukan hari biasa.<br><br>
-Karena di hari ini,<br>
-seseorang yang penting banget lahir ke dunia.<br><br>
-<b class="heartbeat">Happy Birthday ✨</b><br><br>
-Semoga hari ini kamu ngerasa disayang,<br>
-diperhatiin,<br>
-dan diinget.`,
-
-`Eh…<br>
-kok di-reply?<br><br>
-Kamu penasaran ya 😌<br><br>
-Gapapa,<br>
-aku juga bakal ngulang<br>
-kalau ini soal kamu.<br><br>
-Jeung mun cape…<br>
-istirahat heula, ulah maksa.`,
-
-`Fix…<br>
-kamu emang nggak bisa berhenti 😂<br><br>
-Tapi jujur,<br>
-aku seneng kamu masih di sini.<br><br>
-If I could wish one thing for you—<br>
-semoga kamu selalu nemu jalan pulang,<br>
-even di hari yang berat.`
+`Eh…<br><br>Tunggu sebentar ya.`,
+`<b class="heartbeat">Selamat ulang tahun, ${namaDia} 🎉</b><br><br>
+Hari ini bukan hari biasa.`,
+`Masih di sini ya? 😌<br><br>
+Aku senang kamu ada.`,
+`Semoga kamu selalu menemukan jalan pulang.`,
 ];
 
-/* ✅ TYPEWRITER FIXED (HTML support) */
 function typeWriter(text, speed = 35) {
-  textEl.classList.remove("fade");
   textEl.innerHTML = "";
-
   let temp = document.createElement("div");
   temp.innerHTML = text;
-
   let nodes = Array.from(temp.childNodes);
 
   function typeNode() {
-    if (nodes.length === 0) {
-      textEl.classList.add("fade");
-      return;
-    }
-
+    if (nodes.length === 0) return;
     let node = nodes.shift();
 
     if (node.nodeType === 3) {
       let content = node.textContent;
       let i = 0;
-
       let interval = setInterval(() => {
         textEl.innerHTML += content.charAt(i);
         i++;
@@ -197,14 +147,28 @@ function typeWriter(text, speed = 35) {
           typeNode();
         }
       }, speed);
-
     } else {
       textEl.appendChild(node.cloneNode(true));
       typeNode();
     }
   }
-
   typeNode();
+}
+
+function clearDecor() {
+  decorContainer.innerHTML = "";
+}
+
+function addDecor(symbols) {
+  clearDecor();
+  symbols.forEach(sym => {
+    const el = document.createElement("div");
+    el.className = "decor";
+    el.innerText = sym;
+    el.style.top = Math.random()*80 + "vh";
+    el.style.left = Math.random()*90 + "vw";
+    decorContainer.appendChild(el);
+  });
 }
 
 function createConfetti() {
@@ -212,53 +176,56 @@ function createConfetti() {
     const confetti = document.createElement("div");
     confetti.classList.add("confetti");
     document.body.appendChild(confetti);
-
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    confetti.style.left = Math.random()*100 + "vw";
+    confetti.style.animationDuration = (Math.random()*3+2)+"s";
     confetti.style.backgroundColor =
-      ["#ff8fa3", "#ffd6e0", "#ffffff", "#ffb3c1"][Math.floor(Math.random() * 4)];
-
-    setTimeout(() => confetti.remove(), 5000);
+      ["#ff8fa3","#ffffff","#ffc2d1"][Math.floor(Math.random()*3)];
+    setTimeout(()=>confetti.remove(),5000);
   }
 }
+
+/* PAGE 1 DECOR */
+addDecor(["❓"]);
 
 typeWriter(messages[0]);
 
 btn.onclick = () => {
+
+  music.play().catch(()=>{});
+
   if (step === 0) {
-    music.play();
+    body.classList.remove("dark");
+    body.classList.add("pink");
+    addDecor(["💖","✨","🌸"]);
     typeWriter(messages[1]);
     btn.innerText = "Reply";
   }
   else if (step === 1) {
+    addDecor(["⭐","🌟","💫"]);
     typeWriter(messages[2]);
     btn.innerText = "Reply lagi";
   }
   else if (step === 2) {
+    addDecor(["🌷","💐","🌺"]);
     typeWriter(messages[3]);
     btn.innerText = "Reply lagi";
   }
   else {
+    addDecor(["🎉","🎊","🥳"]);
     createConfetti();
     textEl.innerHTML = `
-      <h2>🔒 Secret Page</h2>
+      <h2>🎉 Secret Page 🎉</h2>
       <p>
-      Kalau kamu sampai ke sini…<br><br>
-      berarti kamu beneran baca semuanya.<br><br>
-      Aku cuma mau bilang satu hal,<br>
-      yang nggak aku tulis di mana-mana.<br><br>
-      <b>Aku bersyukur ada kamu.</b><br><br>
-      Selamat ulang tahun 🤍<br>
-      Jangan lupa…<br>
-      kamu nggak sendirian.
+      Selamat ulang tahun, ${namaDia} 🤍<br><br>
+      Aku bersyukur ada kamu.
       </p>
     `;
     btn.classList.add("hidden");
   }
+
   step++;
 };
 </script>
 
 </body>
 </html>
-
