@@ -3,228 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Just a moment…</title>
+<title>For You</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  transition: background 1.5s ease;
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    transition:1s;
+    overflow:hidden;
 }
 
-/* DARK PAGE */
-body.dark {
-  background: linear-gradient(135deg, #0f0f1a, #1a1a2e, #16213e);
+/* Background */
+.dark{
+    background:linear-gradient(135deg,#000000,#1a1a1a);
+    color:white;
 }
 
-/* PINK PAGE */
-body.pink {
-  background: linear-gradient(135deg, #ff9eb5, #ffc2d1, #ffe0e9);
-  color: #4a2c35;
+.pink{
+    background:linear-gradient(135deg,#ff9ecf,#ffcce6);
+    color:#5a0033;
 }
 
-.container {
-  max-width: 420px;
-  padding: 30px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+/* Container */
+.container{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:25px;
+    position:relative;
 }
 
-button {
-  margin-top: 25px;
-  padding: 12px 28px;
-  border-radius: 30px;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-  background: linear-gradient(135deg, #ff8fa3, #ffb3c1);
-  color: #1a1a2e;
-  transition: 0.3s;
+h1{
+    max-width:600px;
+    line-height:1.6;
 }
 
-button:hover {
-  transform: scale(1.07);
+button{
+    margin-top:25px;
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    background:#ff4da6;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
 }
 
-.hidden { display: none; }
-
-.heartbeat {
-  display: inline-block;
-  animation: beat 1.2s infinite;
-}
-@keyframes beat {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+button:hover{
+    transform:scale(1.1);
+    background:#ff1a8c;
 }
 
-/* DECORATIONS */
-.decor {
-  position: fixed;
-  font-size: 30px;
-  opacity: 0.8;
-  animation: float 4s ease-in-out infinite alternate;
-  z-index: 1;
-}
-@keyframes float {
-  from { transform: translateY(0px); }
-  to { transform: translateY(15px); }
+/* Floating decor */
+.decor{
+    position:absolute;
+    font-size:26px;
+    animation:float 3s ease-in-out infinite;
 }
 
-.confetti {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  top: -10px;
-  animation: fall linear forwards;
+@keyframes float{
+    0%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+    100%{transform:translateY(0)}
 }
-@keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(720deg);
-    opacity: 0;
-  }
+
+/* Fade */
+.fade{
+    animation:fade 1s ease;
+}
+
+@keyframes fade{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+/* Heartbeat */
+.heartbeat{
+    animation:beat 1.2s infinite;
+}
+
+@keyframes beat{
+    0%{transform:scale(1)}
+    25%{transform:scale(1.2)}
+    40%{transform:scale(1)}
+    60%{transform:scale(1.2)}
+    100%{transform:scale(1)}
 }
 </style>
 </head>
 
 <body class="dark">
 
-<div id="decorations"></div>
-
-<div class="container">
-  <div id="text"></div>
-  <button id="btn">Klik ini pelan-pelan</button>
+<div class="container" id="container">
+    <h1 id="text">Kira-kira ini apa ya???...</h1>
+    <button id="btn" onclick="nextPage()">Klik di sini nih</button>
 </div>
 
-<audio id="music" src="pasilyo.mp3" loop></audio>
+<audio id="music" loop>
+    <source src="pasilyo.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-const body = document.body;
-const textEl = document.getElementById("text");
-const btn = document.getElementById("btn");
-const music = document.getElementById("music");
-const decorContainer = document.getElementById("decorations");
-
-music.volume = 0.3;
 let step = 0;
-const namaDia = "Uwinnnnn"; // ganti nama
+const namaDia = "Uwinnnnn"; // GANTI
 
-const messages = [
-`Eh…<br><br>Tunggu sebentar ya.`,
-`<b class="heartbeat">Selamat ulang tahun, ${namaDia} 🎉</b><br><br>
-Hari ini bukan hari biasa.`,
-`Masih di sini ya? 😌<br><br>
-Aku senang kamu ada.`,
-`Semoga kamu selalu menemukan jalan pulang.`,
-];
+function clearDecor(){
+    document.querySelectorAll(".decor").forEach(e => e.remove());
+}
 
-function typeWriter(text, speed = 35) {
-  textEl.innerHTML = "";
-  let temp = document.createElement("div");
-  temp.innerHTML = text;
-  let nodes = Array.from(temp.childNodes);
+function addDecor(symbol, top, left, right, bottom){
+    const decor = document.createElement("div");
+    decor.className="decor";
+    decor.innerHTML=symbol;
+    if(top) decor.style.top=top;
+    if(left) decor.style.left=left;
+    if(right) decor.style.right=right;
+    if(bottom) decor.style.bottom=bottom;
+    document.getElementById("container").appendChild(decor);
+}
 
-  function typeNode() {
-    if (nodes.length === 0) return;
-    let node = nodes.shift();
+function nextPage(){
+    const text=document.getElementById("text");
+    const btn=document.getElementById("btn");
+    const body=document.body;
 
-    if (node.nodeType === 3) {
-      let content = node.textContent;
-      let i = 0;
-      let interval = setInterval(() => {
-        textEl.innerHTML += content.charAt(i);
-        i++;
-        if (i >= content.length) {
-          clearInterval(interval);
-          typeNode();
-        }
-      }, speed);
-    } else {
-      textEl.appendChild(node.cloneNode(true));
-      typeNode();
+    clearDecor();
+
+    text.classList.remove("fade");
+    void text.offsetWidth;
+    text.classList.add("fade");
+
+    if(step===0){
+        document.getElementById("music").play();
+        body.classList.remove("dark");
+        body.classList.add("pink");
+
+        text.innerHTML=`Selamat ulang tahun, <span class="heartbeat">${namaDia}</span> 🎉<br><br>
+        Hari ini adalah hari yang spesial.`;
+
+        btn.innerHTML="Reply →";
+        addDecor("🎀","20px",null,"20px",null);
     }
-  }
-  typeNode();
+
+    else if(step===1){
+        text.innerHTML=`Aku cuma ingin bilang…<br><br>
+        Semoga di usia yang baru ini,
+        kamu menemukan lebih banyak alasan untuk tersenyum.`;
+
+        addDecor("✨","30px","30px",null,null);
+    }
+
+    else if(step===2){
+        text.innerHTML=`Kalau suatu hari terasa berat,<br><br>
+        ingat ya — kamu sudah sejauh ini.<br>
+        Dan itu bukan hal kecil.`;
+
+        addDecor("💌",null,null,"40px","40px");
+    }
+
+    else if(step===3){
+        text.innerHTML=`Masih mau lanjut?<br><br>
+        kalau kamu udah sampai sini...<br>
+        berarti kamu udah baca semuanya <br><br>
+        dan aku seneng akan hal itu <br><br><br>
+        masih ada satu lagi yang ingin aku bilang...`;
+
+        addDecor("❓","25px",null,"50px",null);
+    }
+
+    else if(step===4){
+        // 🔥 SECRET PAGE
+        text.innerHTML=`<span class="heartbeat">💖 FINAL PAGE 💖</span><br><br>
+        Sebenarnya…<br><br>
+        Aku bersyukur bisa bertemu kamu.<br>
+        Dan aku harap tahun ini
+        jadi tahun terbaik untukmu.<br><br>
+        Terima kasih sudah jadi kamu.`;
+
+        btn.innerHTML="End";
+        addDecor("🔒","20px","20px",null,null);
+    }
+
+    else{
+        btn.style.display="none";
+    }
+
+    step++;
 }
-
-function clearDecor() {
-  decorContainer.innerHTML = "";
-}
-
-function addDecor(symbols) {
-  clearDecor();
-  symbols.forEach(sym => {
-    const el = document.createElement("div");
-    el.className = "decor";
-    el.innerText = sym;
-    el.style.top = Math.random()*80 + "vh";
-    el.style.left = Math.random()*90 + "vw";
-    decorContainer.appendChild(el);
-  });
-}
-
-function createConfetti() {
-  for (let i = 0; i < 80; i++) {
-    const confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    document.body.appendChild(confetti);
-    confetti.style.left = Math.random()*100 + "vw";
-    confetti.style.animationDuration = (Math.random()*3+2)+"s";
-    confetti.style.backgroundColor =
-      ["#ff8fa3","#ffffff","#ffc2d1"][Math.floor(Math.random()*3)];
-    setTimeout(()=>confetti.remove(),5000);
-  }
-}
-
-/* PAGE 1 DECOR */
-addDecor(["❓"]);
-
-typeWriter(messages[0]);
-
-btn.onclick = () => {
-
-  music.play().catch(()=>{});
-
-  if (step === 0) {
-    body.classList.remove("dark");
-    body.classList.add("pink");
-    addDecor(["💖","✨","🌸"]);
-    typeWriter(messages[1]);
-    btn.innerText = "Reply";
-  }
-  else if (step === 1) {
-    addDecor(["⭐","🌟","💫"]);
-    typeWriter(messages[2]);
-    btn.innerText = "Reply lagi";
-  }
-  else if (step === 2) {
-    addDecor(["🌷","💐","🌺"]);
-    typeWriter(messages[3]);
-    btn.innerText = "Reply lagi";
-  }
-  else {
-    addDecor(["🎉","🎊","🥳"]);
-    createConfetti();
-    textEl.innerHTML = `
-      <h2>🎉 Secret Page 🎉</h2>
-      <p>
-      Selamat ulang tahun, ${namaDia} 🤍<br><br>
-      Aku bersyukur ada kamu.
-      </p>
-    `;
-    btn.classList.add("hidden");
-  }
-
-  step++;
-};
 </script>
 
 </body>
