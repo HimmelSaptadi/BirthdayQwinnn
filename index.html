@@ -20,6 +20,32 @@ body {
   overflow: hidden;
 }
 
+/* 🌌 STARS BACKGROUND */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.stars::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.15;
+  animation: moveStars 60s linear infinite;
+}
+
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-200px); }
+}
+
 .container {
   max-width: 420px;
   padding: 30px;
@@ -42,24 +68,61 @@ button {
   background: linear-gradient(135deg, #ff8fa3, #ffb3c1);
   color: #1a1a2e;
   font-weight: 500;
+  transition: 0.3s;
 }
 
 button:hover {
   opacity: 0.9;
+  transform: scale(1.05);
 }
 
 .hidden {
   display: none;
 }
 
+/* ✨ FADE EFFECT */
+.fade {
+  animation: fadeIn 0.8s ease;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* 💓 HEARTBEAT */
+.heartbeat {
+  display: inline-block;
+  animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* 🎉 CONFETTI */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="stars"></div>
 
 <div class="container">
   <div id="text"></div>
@@ -86,7 +149,7 @@ sekarang boleh mulai.<br><br>
 Hari ini bukan hari biasa.<br><br>
 Karena di hari ini,<br>
 seseorang yang penting banget lahir ke dunia.<br><br>
-<b>Happy Birthday ✨</b><br><br>
+<b class="heartbeat">Happy Birthday ✨</b><br><br>
 Semoga hari ini kamu ngerasa disayang,<br>
 diperhatiin,<br>
 dan diinget.`,
@@ -110,10 +173,31 @@ even di hari yang berat.`
 ];
 
 function typeWriter(text, i = 0) {
-  if (i === 0) textEl.innerHTML = "";
+  if (i === 0) {
+    textEl.innerHTML = "";
+    textEl.classList.remove("fade");
+  }
+
   if (i < text.length) {
     textEl.innerHTML += text.charAt(i);
-    setTimeout(() => typeWriter(text, i + 1), 40);
+    setTimeout(() => typeWriter(text, i + 1), 35);
+  } else {
+    textEl.classList.add("fade");
+  }
+}
+
+function createConfetti() {
+  for (let i = 0; i < 80; i++) {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    document.body.appendChild(confetti);
+
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    confetti.style.backgroundColor =
+      ["#ff8fa3", "#ffd6e0", "#ffffff", "#ffb3c1"][Math.floor(Math.random() * 4)];
+
+    setTimeout(() => confetti.remove(), 5000);
   }
 }
 
@@ -134,6 +218,7 @@ btn.onclick = () => {
     btn.innerText = "Reply lagi";
   }
   else {
+    createConfetti();
     textEl.innerHTML = `
       <h2>🔒 Secret Page</h2>
       <p>
