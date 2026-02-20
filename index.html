@@ -1,78 +1,86 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #0f0f0f;
-      color: white;
-      text-align: center;
-      overflow: hidden;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    .screen {
-      min-height: 100vh;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 25px;
-    }
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #0b0b0b;
+  color: white;
+  overflow: hidden;
+  text-align: center;
+}
 
-    .show {
-      display: flex;
-    }
+/* SCREEN */
+.screen {
+  min-height: 100vh;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
 
-    h1 {
-      font-size: 2.2em;
-      margin-bottom: 20px;
-    }
+.show {
+  display: flex;
+}
 
-    p {
-      max-width: 600px;
-      font-size: 1.1em;
-      line-height: 1.7;
-      opacity: 0;
-      animation: fadeIn 2s forwards;
-    }
+/* TEXT */
+h1 {
+  font-size: 2.3em;
+  margin-bottom: 15px;
+}
 
-    button {
-      margin-top: 35px;
-      padding: 14px 34px;
-      border: none;
-      border-radius: 30px;
-      background: white;
-      color: #ff4f8b;
-      font-size: 1em;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+p {
+  max-width: 650px;
+  line-height: 1.7;
+  font-size: 1.1em;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
 
-    button:hover {
-      transform: scale(1.05);
-    }
+button {
+  margin-top: 35px;
+  padding: 14px 36px;
+  border-radius: 40px;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  background: white;
+  color: #ff4f8b;
+  transition: 0.3s;
+}
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+button:hover {
+  transform: scale(1.08);
+}
 
-    /* hearts */
-    .heart {
-      position: fixed;
-      top: -10px;
-      font-size: 22px;
-      animation: fall linear infinite;
-    }
+/* ANIMATION */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
-    @keyframes fall {
-      to { transform: translateY(110vh); }
-    }
-  </style>
+/* DECORATIONS */
+.star, .heart, .confetti {
+  position: fixed;
+  top: -20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh) rotate(360deg);
+  }
+}
+</style>
 </head>
 
 <body>
@@ -82,50 +90,49 @@
   <source src="pasilyo.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MYSTERY OPENING -->
-<div class="screen show" id="mystery">
+<!-- MYSTERIOUS OPENING -->
+<div class="screen show" id="opening">
   <p style="animation-delay:0s;">Hei…</p>
-  <p style="animation-delay:1.5s;">Kalau kamu sampai di sini,</p>
-  <p style="animation-delay:3s;">artinya kamu cukup penting.</p>
-  <p style="animation-delay:4.5s;">Dan ini… bukan hal biasa.</p>
+  <p style="animation-delay:1.5s;">Kalau kamu sampai ke sini,</p>
+  <p style="animation-delay:3s;">berarti kamu bukan orang sembarangan.</p>
+  <p style="animation-delay:4.5s;">Dan ini… bukan sekadar halaman web.</p>
   <button onclick="start()">lanjut</button>
 </div>
 
 <!-- MAIN BIRTHDAY -->
-<div class="screen" id="main">
-  <h1>🎉 Happy Birthday 🎂</h1>
+<div class="screen" id="main" style="background:linear-gradient(135deg,#ff758c,#ff7eb3);">
+  <h1>🎂 Happy Birthday 🎉</h1>
   <p>
     Surprise 😌  
-    I know, kamu nggak nyangka bakal sampai ke sini.
+    Hari ini bukan hari biasa.
     <br><br>
-    Hari ini bukan hari biasa.  
-    Hari ini adalah hari di mana seseorang yang berarti banget… lahir.
+    Hari ini adalah hari di mana seseorang yang berarti banget lahir ke dunia
+    dan tanpa sadar bikin banyak hal jadi lebih hangat.
     <br><br>
-    Semoga kamu selalu sehat,  
-    hatinya tenang,  
-    langkahnya ringan,  
+    Semoga kamu selalu sehat,
+    hatinya tenang,
+    langkahnya ringan,
     jeung hirupna pinuh ku hal-hal alus ✨
     <br><br>
-    Thank you for being you.  
-    Dengan semua sisi random, lucu, dan caramu hadir tanpa sadar bikin dunia
-    (dan aku) jadi lebih hangat 🤍
+    Thank you for being you —
+    dengan semua sisi random,
+    lucu,
+    dan caramu hadir yang selalu terasa berbeda 🤍
   </p>
-
-  <button onclick="surprise()">jangan klik ini</button>
+  <button onclick="final()">jangan klik ini</button>
 </div>
 
 <!-- FINAL SURPRISE -->
-<div class="screen" id="final">
+<div class="screen" id="final" style="background:linear-gradient(135deg,#232526,#414345);">
   <h1>🤍</h1>
   <p>
-    No overthinking.  
-    No big words.
+    No long speech.  
+    No fancy words.
     <br><br>
     Just this:
     <br><br>
     Aku bersyukur kamu ada.  
-    And today, I hope you feel loved.  
-    A lot.
+    And today, I hope you feel loved.
     <br><br>
     Selamat ulang tahun.  
     Aya aku di dieu 🫶
@@ -133,34 +140,62 @@
 </div>
 
 <script>
-  const music = document.getElementById("music");
-  music.volume = 0.18;
+const music = document.getElementById("music");
+music.volume = 0.18;
 
-  function start() {
-    document.getElementById("mystery").style.display = "none";
-    document.getElementById("main").classList.add("show");
-    music.play();
-  }
+// START
+function start() {
+  document.getElementById("opening").style.display = "none";
+  document.getElementById("main").classList.add("show");
+  music.play();
+  stars();
+}
 
-  function surprise() {
-    document.getElementById("main").style.display = "none";
-    document.getElementById("final").classList.add("show");
-    hearts();
-  }
+// FINAL
+function final() {
+  document.getElementById("main").style.display = "none";
+  document.getElementById("final").classList.add("show");
+  hearts();
+  confetti();
+}
 
-  function hearts() {
-    for (let i = 0; i < 30; i++) {
-      const h = document.createElement("div");
-      h.className = "heart";
-      h.innerHTML = "🤍";
-      h.style.left = Math.random() * 100 + "vw";
-      h.style.animationDuration = (Math.random() * 3 + 2) + "s";
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 6000);
-    }
+// DECOR FUNCTIONS
+function stars() {
+  for (let i = 0; i < 30; i++) {
+    let s = document.createElement("div");
+    s.className = "star";
+    s.innerHTML = "✨";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.animationDuration = (Math.random() * 4 + 3) + "s";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 7000);
   }
+}
+
+function hearts() {
+  for (let i = 0; i < 30; i++) {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "🤍";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }
+}
+
+function confetti() {
+  for (let i = 0; i < 40; i++) {
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.innerHTML = "🎉";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 6000);
+  }
+}
 </script>
 
 </body>
 </html>
-
