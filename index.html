@@ -2,269 +2,131 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>hey…</title>
+<title>🎂 For You</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:radial-gradient(circle at top,#0f2027,#000);
-  color:#fff;
-  overflow:hidden;
-}
-.screen{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:30px;
-}
-.hidden{display:none}
-.typing{
-  font-size:20px;
-  line-height:1.8;
-  max-width:520px;
-  white-space:pre-line;
-}
-button{
-  padding:14px 30px;
-  border:none;
-  border-radius:30px;
-  background:#ff4f8b;
-  color:white;
-  font-size:15px;
-  cursor:pointer;
-}
-.card{
-  background:white;
-  color:#333;
-  padding:26px;
-  border-radius:26px;
-  max-width:420px;
-  box-shadow:0 20px 40px rgba(0,0,0,.35);
-  animation:pop 1s ease;
-}
-h1{
-  font-family:'Playfair Display',serif;
-  color:#ff4f8b;
-}
-@keyframes pop{
-  from{transform:scale(.8);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-.star{
-  position:absolute;
-  width:2px;height:2px;
-  background:white;
-  opacity:.7;
-}
-.balloon{
-  position:absolute;
-  bottom:-80px;
-  width:40px;height:55px;
-  border-radius:50%;
-  animation:float 8s infinite ease-in;
-  opacity:.7;
-}
-@keyframes float{
-  to{transform:translateY(-120vh)}
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* SECRET PAGE STYLE */
-.secret{
-  background:radial-gradient(circle at top,#1a2a6c,#000);
-  color:#fff;
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
 }
-.secret .box{
-  max-width:420px;
-  background:rgba(255,255,255,.08);
-  padding:28px;
-  border-radius:24px;
-  backdrop-filter:blur(8px);
+
+.container {
+  text-align: center;
+  max-width: 600px;
+  padding: 30px;
+  animation: fadeIn 1.5s ease;
 }
-.secret h2{
-  font-family:'Playfair Display',serif;
-  color:#ffd1dc;
+
+button {
+  margin-top: 30px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 30px;
+  background: #ff7eb3;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ff4f9a;
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-  <source src="pasilyo.mp3" type="audio/mpeg">
-</audio>
-
-<!-- STAGE 0 -->
-<div class="screen" id="stage0">
-  <button onclick="enter()">klik ini sebentar</button>
+<div class="container">
+  <div id="text"></div>
+  <button id="actionBtn">Klik ini</button>
 </div>
 
-<!-- REACTION -->
-<div class="screen hidden" id="reaction">
-  <div class="typing" id="reactionText"></div>
-</div>
-
-<!-- STAGE 1 -->
-<div class="screen hidden" id="stage1">
-  <div class="typing" id="text1"></div>
-</div>
-
-<!-- STAGE 2 -->
-<div class="screen hidden" id="stage2">
-  <div class="typing" id="text2"></div>
-</div>
-
-<!-- MAIN CARD -->
-<div class="screen hidden" id="stage3">
-  <div class="card">
-    <h1>🎉 Happy Birthday, Uwinnnn 🎂</h1>
-    <p>
-      Hari ini mungkin kelihatan biasa aja,<br>
-      tapi sebenernya hari ini adalah hari<br>
-      dimana dunia dapet versi kamu 😆💖<br><br>
-
-      Semoga kamu selalu sehat,
-      bahagia, dan pelan-pelan
-      semua hal baik nyamperin hidup kamu ✨<br><br>
-
-      Thank you for being you —
-      random, lucu,
-      dan selalu bikin aku mikir:
-      <i>“kok bisa ya aku seberuntung ini”</i> 😌<br><br>
-
-      Tetep jadi kamu,
-      jeung nu sok bisa ngajadikeun
-      aku ngerasa pulang 🤍
-    </p>
-
-    <p><b>From: Dawaaaa ❤️</b></p>
-    <button onclick="replay()">🔁 ulangi dari awal</button>
-  </div>
-</div>
-
-<!-- SECRET PAGE -->
-<div class="screen hidden secret" id="secretPage">
-  <div class="box">
-    <h2>🤍 Halaman Rahasia</h2>
-    <p>
-      Kalau kamu sampai ke sini…<br>
-      berarti kamu benar-benar penasaran,<br>
-      atau mungkin… peduli 😌<br><br>
-
-      Aku nggak tau ini bakal kamu ulang berapa kali.<br>
-      Tapi satu hal yang pasti:<br>
-      aku seneng kamu masih di sini 🤍<br><br>
-
-      Happy birthday once again.<br>
-      Semoga suatu hari nanti kamu inget,<br>
-      pernah ada seseorang yang bikinin ini cuma buat kamu.
-    </p>
-    <button onclick="backToStart()">balik lagi</button>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<audio id="music" src="pasillyo.mp3" loop></audio>
 
 <script>
-const music=document.getElementById("music");
-music.volume=0.25;
-let repeatCount=0;
+const textEl = document.getElementById("text");
+const btn = document.getElementById("actionBtn");
+const music = document.getElementById("music");
 
-function typeWriter(el,text,speed,cb){
-  let i=0; el.innerHTML="";
-  const t=setInterval(()=>{
-    if(i<text.length){ el.innerHTML+=text[i++]; }
-    else{ clearInterval(t); if(cb)cb(); }
-  },speed);
+music.volume = 0.25;
+
+let step = 0;
+
+const messages = [
+  "Eh… tunggu dulu.<br><br>Ada sesuatu buat kamu.<br><br>Siap nggak?",
+  
+  "Happy Birthday 🎉✨<br><br>Hari ini spesial, karena yang ultah juga spesial.<br><br>Semoga kamu selalu sehat, bahagia, dan tetap jadi kamu yang sekarang.<br><br>Oh iya… wilujeng tepang taun ya 😄",
+
+  "Serius diulang lagi? 😌<br><br>Berarti kamu penasaran ya.<br><br>Just so you know,<br>you make days feel lighter without even trying.<br><br>Hehe.",
+
+  "Fix kamu emang nggak bisa berhenti 😆<br><br>Tapi gapapa.<br><br>Kalau ulang tahun itu doa,<br>maka aku harap semesta selalu ramah sama kamu.<br><br>Sok atuh, senyum dulu 🤍"
+];
+
+function typeWriter(text, i = 0) {
+  if (i < text.length) {
+    textEl.innerHTML += text.charAt(i);
+    setTimeout(() => typeWriter(text, i + 1), 40);
+  }
 }
 
-function enter(){
-  stage0.classList.add("hidden");
-  stage1.classList.remove("hidden");
-  startStory();
-}
+btn.onclick = () => {
+  textEl.innerHTML = "";
 
-function startStory(){
-  let t1="", t2="";
-  if(repeatCount===0){
-    t1="Sebenernya ini nggak penting…\n\nTapi ada satu hal yang pengen aku bilang.";
-    t2="Aku nggak tau kamu bakal buka ini atau nggak.\n\nTapi kalau kamu di sini… berarti kamu penasaran 😌";
-  }else if(repeatCount===1){
-    t1="Oke… kita ulang.";
-    t2="Tapi kamu beneran balik lagi 😏";
-  }else{
-    t1="Aku mulai curiga sih…";
-    t2="kamu tuh sebenernya nunggu sesuatu 🤍";
+  if (step === 0) {
+    music.play();
+    typeWriter(messages[1]);
+    btn.innerText = "Reply";
+  }
+  else if (step === 1) {
+    typeWriter(messages[2]);
+    btn.innerText = "Reply lagi";
+  }
+  else if (step === 2) {
+    typeWriter(messages[3]);
+    btn.innerText = "Reply lagi";
+  }
+  else {
+    // EASTER EGG
+    textEl.innerHTML = `
+      <h2>🔒 Secret Page</h2>
+      <p>
+      Kalau kamu sampai sini…<br><br>
+      berarti kamu beneran penting.<br><br>
+      Terima kasih sudah ada.<br>
+      Jangan berubah ya.<br><br>
+      🎂🤍
+      </p>
+    `;
+    btn.classList.add("hidden");
   }
 
-  typeWriter(text1,t1,45,()=>{
-    setTimeout(()=>{
-      stage1.classList.add("hidden");
-      stage2.classList.remove("hidden");
-      music.play();
-      typeWriter(text2,t2,45,()=>setTimeout(showSurprise,1200));
-    },1000);
-  });
-}
-
-function showSurprise(){
-  stage2.classList.add("hidden");
-  stage3.classList.remove("hidden");
-  confetti({particleCount:200,spread:90,origin:{y:.6}});
-}
-
-function replay(){
-  repeatCount++;
-  stage3.classList.add("hidden");
-
-  if(repeatCount>=4){
-    secretPage.classList.remove("hidden");
-    return;
-  }
-
-  reaction.classList.remove("hidden");
-  let rText =
-    repeatCount===1 ? "serius diulang lagi?" :
-    repeatCount===2 ? "eh… kok masih di sini?" :
-    "kamu penasaran banget ya…";
-
-  typeWriter(reactionText,rText,45,()=>{
-    setTimeout(()=>{
-      reaction.classList.add("hidden");
-      stage0.classList.remove("hidden");
-      music.currentTime=0;
-    },1500);
-  });
-}
-
-function backToStart(){
-  secretPage.classList.add("hidden");
-  stage0.classList.remove("hidden");
-}
-
-/* dekor */
-for(let i=0;i<70;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  document.body.appendChild(s);
-}
-for(let i=0;i<12;i++){
-  let b=document.createElement("div");
-  b.className="balloon";
-  b.style.left=Math.random()*100+"vw";
-  b.style.background=`hsl(${Math.random()*360},80%,70%)`;
-  b.style.animationDuration=6+Math.random()*5+"s";
-  document.body.appendChild(b);
-}
+  step++;
+};
 </script>
 
 </body>
