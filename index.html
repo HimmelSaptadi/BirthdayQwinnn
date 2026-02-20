@@ -1,195 +1,165 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>...</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>For You 🎂</title>
 
-<!-- FONTS -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
-<style>
-* { box-sizing: border-box; }
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #2b1055, #000);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(255,140,170,0.25), transparent 40%),
-    linear-gradient(180deg, #0b0b0b, #141414);
-  color: #f5f5f5;
-  text-align: center;
-  overflow: hidden;
-}
+    .card {
+      max-width: 700px;
+      padding: 40px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 192, 203, 0.25);
+      animation: fadeIn 1.5s ease;
+    }
 
-/* grain */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
 
-/* SCREEN */
-.screen {
-  min-height: 100vh;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 28px;
-}
-.show { display: flex; }
+    p {
+      font-size: 1.1em;
+      line-height: 1.8;
+    }
 
-/* TEXT */
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.6em;
-  margin-bottom: 18px;
-}
-p {
-  max-width: 680px;
-  font-size: 1.08em;
-  line-height: 1.8;
-  opacity: 0;
-  animation: fadeIn 2.2s forwards;
-}
-@keyframes fadeIn { to { opacity: 1; } }
+    button {
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 1em;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ff6ec7, #ff9a9e);
+      color: #000;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 0 15px rgba(255,105,180,0.5);
+    }
 
-/* BUTTON */
-button {
-  margin-top: 38px;
-  padding: 14px 38px;
-  border-radius: 50px;
-  border: none;
-  font-size: 0.95em;
-  cursor: pointer;
-  background: linear-gradient(135deg, #ffffff, #ffe4ec);
-  color: #ff4f8b;
-  font-weight: 500;
-  box-shadow: 0 10px 30px rgba(255,79,139,0.25);
-  transition: .35s;
-}
-button:hover {
-  transform: translateY(-2px) scale(1.05);
-}
+    button:hover {
+      transform: scale(1.05);
+    }
 
-/* DECOR */
-.star, .heart, .confetti {
-  position: fixed;
-  top: -20px;
-  font-size: 20px;
-  animation: fall linear infinite;
-}
-@keyframes fall {
-  to { transform: translateY(120vh) rotate(360deg); }
-}
-</style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .sparkle {
+      font-size: 1.4em;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- MUSIC -->
-<audio id="music" loop>
+<audio id="bgm" autoplay loop>
   <source src="pasilyo.mp3" type="audio/mpeg">
 </audio>
 
-<!-- OPENING -->
-<div class="screen show" id="opening">
-  <p style="animation-delay:0s;">Hei…</p>
-  <p style="animation-delay:1.5s;">Kalau kamu sampai di sini,</p>
-  <p style="animation-delay:3s;">berarti kamu cukup penting.</p>
-  <p style="animation-delay:4.5s;">Dan ini… bukan hal biasa.</p>
-  <button onclick="start()">lanjut</button>
-</div>
-
-<!-- MAIN -->
-<div class="screen" id="main" style="background:linear-gradient(135deg,#ff758c,#ff7eb3);">
-  <h1>🎂 Happy Birthday 🎉</h1>
-  <p>
-    Surprise 😌<br><br>
-    Hari ini bukan hari biasa.<br>
-    Hari ini adalah hari di mana seseorang yang berarti banget lahir ke dunia,
-    dan tanpa sadar bikin banyak hal jadi lebih hangat.<br><br>
-    Semoga kamu selalu sehat,
-    hatinya tenang,
-    langkahnya ringan,
-    jeung hirupna pinuh ku hal-hal alus ✨<br><br>
-    Thank you for being you —
-    dengan semua sisi random,
-    lucu,
-    dan caramu hadir yang selalu terasa berbeda 🤍
-  </p>
-  <button onclick="final()">jangan klik ini</button>
-</div>
-
-<!-- FINAL -->
-<div class="screen" id="final" style="background:linear-gradient(135deg,#232526,#414345);">
-  <h1>🤍</h1>
-  <p>
-    No long speech.<br>
-    No fancy words.<br><br>
-    Just this:<br><br>
-    Aku bersyukur kamu ada.<br>
-    And today, I hope you feel loved.<br><br>
-    Selamat ulang tahun.<br>
-    Aya aku di dieu 🫶
-  </p>
+<div class="card" id="content">
+  <h1 id="title"></h1>
+  <p id="text"></p>
+  <button id="replyBtn" class="hidden">Reply 💌</button>
 </div>
 
 <script>
-const music = document.getElementById("music");
-music.volume = 0.18;
+  const title = document.getElementById("title");
+  const text = document.getElementById("text");
+  const btn = document.getElementById("replyBtn");
+  const music = document.getElementById("bgm");
 
-function start(){
-  opening.style.display="none";
-  main.classList.add("show");
-  music.play();
-  stars();
-}
+  music.volume = 0.25;
 
-function final(){
-  main.style.display="none";
-  document.getElementById("final").classList.add("show");
-  hearts(); confetti();
-}
+  let repeatCount = localStorage.getItem("repeat") || 0;
 
-function stars(){
-  for(let i=0;i<25;i++){
-    let e=document.createElement("div");
-    e.className="star";
-    e.innerHTML="✨";
-    e.style.left=Math.random()*100+"vw";
-    e.style.animationDuration=4+Math.random()*3+"s";
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(),7000);
+  const opening = "Hey... 👀";
+  const message = `
+  Happy Birthday to you 🎂✨  
+
+  Hari ini officially milik kamu.
+  Semoga semua hal baik, hal random,
+  dan hal yang bikin kamu senyum,
+  pelan-pelan datang ya 💖  
+
+  You deserve happiness,  
+  love, peace, dan hal-hal kecil  
+  yang bikin kamu bilang  
+  “kok bisa ya aku seberuntung ini?”  
+
+  Dikiiit Sunda ya 😆  
+  **sing salamet yuswa**,  
+  sing sehat, sing bagja,  
+  jeung sing tetep jadi kamu 🌷  
+
+  From someone  
+  who’s quietly grateful  
+  that you exist 🤍
+  `;
+
+  let i = 0;
+  function typeWriter(target, content, speed, callback) {
+    if (i < content.length) {
+      target.innerHTML += content.charAt(i);
+      i++;
+      setTimeout(() => typeWriter(target, content, speed, callback), speed);
+    } else if (callback) {
+      callback();
+    }
   }
-}
 
-function hearts(){
-  for(let i=0;i<30;i++){
-    let e=document.createElement("div");
-    e.className="heart";
-    e.innerHTML="🤍";
-    e.style.left=Math.random()*100+"vw";
-    e.style.animationDuration=3+Math.random()*2+"s";
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(),6000);
-  }
-}
+  typeWriter(title, opening, 80, () => {
+    i = 0;
+    setTimeout(() => {
+      typeWriter(text, message, 25, () => {
+        btn.classList.remove("hidden");
+      });
+    }, 800);
+  });
 
-function confetti(){
-  for(let i=0;i<40;i++){
-    let e=document.createElement("div");
-    e.className="confetti";
-    e.innerHTML="🎉";
-    e.style.left=Math.random()*100+"vw";
-    e.style.animationDuration=3+Math.random()*2+"s";
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(),6000);
-  }
-}
+  btn.onclick = () => {
+    repeatCount++;
+    localStorage.setItem("repeat", repeatCount);
+
+    if (repeatCount >= 3) {
+      title.innerHTML = "EH 😭";
+      text.innerHTML = `
+      Kamu ngeklik ini sampe ${repeatCount}x...  
+
+      Easter egg unlocked 🎁✨  
+
+      Fix kamu lucu.  
+      Makasih udah mau baca ulang.  
+      Sekarang senyum ya 😌💖
+      `;
+      btn.style.display = "none";
+    } else {
+      title.innerHTML = "Lah 😭";
+      text.innerHTML = "Kok diulang lagi sih???";
+    }
+  };
 </script>
 
 </body>
