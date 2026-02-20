@@ -13,6 +13,7 @@ body {
   overflow: hidden;
 }
 
+/* opening screen */
 .screen {
   position: fixed;
   inset: 0;
@@ -33,6 +34,7 @@ body {
   cursor: pointer;
 }
 
+/* card */
 .card {
   max-width: 420px;
   background: white;
@@ -87,33 +89,40 @@ p {
 
 <!-- music -->
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_6b7fa6d66c.mp3">
+  <source src="pasilyo.mp3" type="audio/mpeg">
 </audio>
 
 <!-- main card -->
 <div class="card">
   <h1>🎉 Happy Birthday, Uwinnnnn 🎂</h1>
-  <p>
-    Hari ini 20 Februari 2026, menjadi pengingat bahwa pada hari ini 
-    kamu lahir ke dunia dan bikin dunia jadi  
-    sedikit lebih lucu, lebih ramai, dan lebih berwarna 😆💖<br><br>
 
-    Semoga kamu selalu sehat, bahagia, rezekinya lancar,
-    dan semua hal baik pelan-pelan datang ke hidup kamu ✨<br><br>
+  <p>
+    Hari ini, 20 Februari 2026,  
+    adalah hari di mana dunia dapet satu alasan tambahan buat jadi lebih indah:  
+    <b>kamu</b> lahir 🤍<br><br>
+
+    Semoga di umur yang sekarang ini,
+    kamu selalu diberi kesehatan,
+    hati yang tenang,
+    dan rezeki yang lancar.
+    Semoga hal-hal baik pelan-pelan menemukan jalannya ke hidup kamu ✨<br><br>
 
     Thank you for being you —
-    yang kadang random,
-    selalu random???,
-    tapi selalu bikin aku mikir:
-    <i>“kok bisa ya aku beruntung bisa ketemu kamu”</i> 😌<br><br>
+    dengan semua sisi random-mu,
+    ceritamu,
+    dan caramu hadir tanpa sadar bikin hari-hariku jadi lebih ringan.
+    Kadang aku mikir,
+    <i>“kok bisa ya aku seberuntung ini dipertemukan sama kamu?”</i> 😌<br><br>
 
-    Tetep jadi kamu yang sekarang ya,
-    jalani tiap harinya dengan senyumnya yang bikin tenang,
+    Tetap jadi kamu yang sekarang ya,
+    jalani hari-harimu dengan senyum itu,
+    yang selalu berhasil bikin suasana jadi tenang,
     jeung nu sok bisa ngajadikeun aku ngerasa pulang 🤍<br><br>
 
     Jangan lupa hari ini senyum,
-    makan kue,
-    dan inget… aya aku di dieu 🫶
+    nikmati kue ulang tahunmu,
+    dan inget…
+    <b>aya aku di dieu, always.</b> 🫶
   </p>
 
   <p><b>From: Dawaaaaa ❤️</b></p>
@@ -124,8 +133,15 @@ p {
 
 <script>
 function start(){
-  document.getElementById("start").style.display="none";
-  document.getElementById("music").play();
+  // hide opening screen
+  document.getElementById("start").style.display = "none";
+
+  // play music softly
+  const music = document.getElementById("music");
+  music.volume = 0.25; // 25% volume (lembut & romantis)
+  music.play();
+
+  // confetti
   confetti({
     particleCount: 200,
     spread: 80,
@@ -133,17 +149,16 @@ function start(){
   });
 }
 
-// balloons
+// balloons animation
 for(let i=0;i<12;i++){
-  let b=document.createElement("div");
-  b.className="balloon";
-  b.style.left=Math.random()*100+"vw";
-  b.style.background=`hsl(${Math.random()*360},80%,70%)`;
-  b.style.animationDuration=5+Math.random()*5+"s";
+  let b = document.createElement("div");
+  b.className = "balloon";
+  b.style.left = Math.random()*100 + "vw";
+  b.style.background = `hsl(${Math.random()*360},80%,70%)`;
+  b.style.animationDuration = 5 + Math.random()*5 + "s";
   document.body.appendChild(b);
 }
 </script>
 
 </body>
-
 </html>
